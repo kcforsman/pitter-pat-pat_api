@@ -12,9 +12,10 @@ public class GetRandomIntegers {
 				while(randomInts.contains(newNum)) {
 					newNum = new Random().nextInt(upperBound);
 				}
-			randomInts.add(new Random().nextInt(upperBound));
+			randomInts.add(newNum);
 		}
 		
 		return randomInts;
+		
 	}
 }
