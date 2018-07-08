@@ -1,5 +1,7 @@
 package com.pitterpatpat.api1;
 
+import static java.util.Arrays.asList;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -10,11 +12,13 @@ public class PatternWrapper {
 	ArrayList<Integer> answer;
 	ArrayList<HashMap<String,String>> elements;
 	
+	public static final List<String> TYPES = (List<String>) asList("Color", "Shape", "Letter");
+	
 	public PatternWrapper(ArrayList<Integer> patternSequence, int typeCount, int answerCount,
 			int elementCount) {
 		super();
 		this.answer = new ArrayList<Integer>();
-		this.patternQuestion = generatePatternQuestion(patternSequence);
+		generatePatternQuestion(patternSequence, answerCount);
 		this.elements = new Element().generateUniqueElements(elementCount);
 		this.type = pickTypes(typeCount);
 	}
@@ -36,17 +40,17 @@ public class PatternWrapper {
 	}
 	
 	private ArrayList<String> pickTypes(int count) {
-//		Random random = new Random();
-//		int index = random.nextInt(typeList.size());
+		Random random = new Random();
+		int index = random.nextInt(TYPES.size());
 		
 		ArrayList<String> types = new ArrayList<String>();
 		
-		types.add("Color");
+		types.add(TYPES.get(index));
 		
 		return types;
 	}
 
-	private ArrayList<Integer> generatePatternQuestion(ArrayList<Integer> patternSequence) {
+	private void generatePatternQuestion(ArrayList<Integer> patternSequence, int answerCount) {
 		ArrayList<Integer> patternQuestion = new ArrayList<Integer>();
 		
 		int index = 0;		
@@ -54,17 +58,19 @@ public class PatternWrapper {
 			if (index == patternSequence.size()) {
 				index = 0;
 			}
-			
 			patternQuestion.add(patternSequence.get(index));
 			index++;
-			
 		}
 		
-		int answerIndex = new Random().nextInt(patternQuestion.size());
-		this.answer.add(patternQuestion.get(answerIndex));
-		patternQuestion.set(answerIndex, -1);
-		
-		return patternQuestion;
+		ArrayList<Integer> answerIndices = new GetRandomIntegers().getArrayOfRandomInts(answerCount, patternQuestion.size());
+		for (int j = 0; j < answerIndices.size(); j++) {
+			this.answer.add(patternQuestion.get(answerIndices.get(j)));
+			patternQuestion.set(answerIndices.get(j), -1);
+		}
+				
+		this.patternQuestion = patternQuestion;
 	}
+	
+	
 
 }
