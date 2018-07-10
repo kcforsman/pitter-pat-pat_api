@@ -4,7 +4,6 @@ import static java.util.Arrays.asList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class PatternWrapper {
 	ArrayList<Integer> patternQuestion;
@@ -40,12 +39,11 @@ public class PatternWrapper {
 	}
 	
 	private ArrayList<String> pickTypes(int count) {
-		Random random = new Random();
-		int index = random.nextInt(TYPES.size());
+		ArrayList<Integer> indices = GetRandomIntegers.getArrayOfRandomInts(1, TYPES.size());
 		
 		ArrayList<String> types = new ArrayList<String>();
 		
-		types.add(TYPES.get(index));
+		types.add(TYPES.get(indices.get(0)));
 		
 		return types;
 	}
@@ -62,7 +60,7 @@ public class PatternWrapper {
 			index++;
 		}
 		
-		ArrayList<Integer> answerIndices = new GetRandomIntegers().getArrayOfRandomInts(answerCount, patternQuestion.size());
+		ArrayList<Integer> answerIndices = GetRandomIntegers.getArrayOfRandomInts(answerCount, patternQuestion.size());
 		for (int j = 0; j < answerIndices.size(); j++) {
 			this.answer.add(patternQuestion.get(answerIndices.get(j)));
 			patternQuestion.set(answerIndices.get(j), -1);

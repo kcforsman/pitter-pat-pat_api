@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class PatternController {
 	
 	@GetMapping("/patterns")
-	public ArrayList<PatternWrapper> getPatterns() {
-		
+//	public ArrayList<PatternWrapper> getPatterns() {
+	public ArrayList<Pattern> getPatterns() {
 		ArrayList<Pattern> allPatterns = getAllPatterns();
-		
 		ArrayList<PatternWrapper> patternWrappers = new ArrayList<PatternWrapper>();
-		
 		for (Pattern pattern: allPatterns) {
 			patternWrappers.add(new PatternWrapper(pattern.getPatternSequence(), 1, 1, pattern.getElementCount()));
 		}
 		
 		System.out.println(patternWrappers);
 		
-		return patternWrappers;
+		return allPatterns;
+//		return patternWrappers;
 		
 	}
 	
@@ -66,14 +65,14 @@ public class PatternController {
 		patternSequence3.add(1);
 		
 		ArrayList<Integer> patternSequence4 = new ArrayList<Integer>();
-		patternSequence3.add(0);
-		patternSequence3.add(0);
-		patternSequence3.add(1);
+		patternSequence4.add(0);
+		patternSequence4.add(0);
+		patternSequence4.add(1);
 		
 		ArrayList<Integer> patternSequence5 = new ArrayList<Integer>();
-		patternSequence3.add(0);
-		patternSequence3.add(1);
-		patternSequence3.add(0);
+		patternSequence5.add(0);
+		patternSequence5.add(1);
+		patternSequence5.add(0);
 		
 		ArrayList<ArrayList<Integer>> patternSequences3 = new ArrayList<ArrayList<Integer>>();
 		patternSequences3.add(patternSequence3);

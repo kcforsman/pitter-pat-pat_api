@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GetRandomIntegers {
-	public ArrayList<Integer> getArrayOfRandomInts(int count, int upperBound) {
+	public static ArrayList<Integer> getArrayOfRandomInts(int count, int upperBound) {
 		ArrayList<Integer> randomInts = new ArrayList<Integer>();
 		
 		for (int i = 0; i < count; i++) {
