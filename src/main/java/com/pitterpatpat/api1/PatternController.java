@@ -36,11 +36,13 @@ public class PatternController {
 		
 	}
 	
-	@GetMapping("/patterns/duration/{duration}/{travelerType}")
-	public String getPattern(@PathVariable int duration, @PathVariable String travelerType) {				
-		
-		return "I got this PARAMS: Duration--" + duration + " and  travelerType--" + travelerType;
-		
-	}
+//	Route to test the Pattern Class Method generateRandomSequence
+//	@GetMapping("/patternSequences")
+//	public ArrayList<ArrayList<Integer>> getPatternSequences() {
+//		Pattern.generateRandomPatternSequences(4);
+//		
+//		return Pattern.generateRandomPatternSequences(4);
+//		
+//	}
 
 }
