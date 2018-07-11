@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PatternWrapper {
+	String gameType;
 	ArrayList<Integer> patternQuestion;
 	ArrayList<String> type;
 	ArrayList<Integer> answer;
@@ -13,9 +14,10 @@ public class PatternWrapper {
 	
 	public static final List<String> TYPES = (List<String>) asList("Color", "Shape", "Letter");
 	
-	public PatternWrapper(ArrayList<Integer> patternSequence, int typeCount, int answerCount,
+	public PatternWrapper(String gameType, ArrayList<Integer> patternSequence, int typeCount, int answerCount,
 			int elementCount) {
 		super();
+		this.gameType = gameType;
 		this.answer = new ArrayList<Integer>();
 		generatePatternQuestion(patternSequence, answerCount);
 		this.elements = new Element().generateUniqueElements(elementCount);
