@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class PatternController {
 	
 	@GetMapping("/patterns")
-//	public ArrayList<PatternWrapper> getPatterns() {
-	public ArrayList<Pattern> getPatterns() {
+	public ArrayList<PatternWrapper> getPatterns() {
+//	public ArrayList<Pattern> getPatterns() {
 		ArrayList<Pattern> allPatterns = Pattern.getAllPatterns();
 		ArrayList<PatternWrapper> patternWrappers = new ArrayList<PatternWrapper>();
 		for (Pattern pattern: allPatterns) {
@@ -20,8 +20,8 @@ public class PatternController {
 		
 		System.out.println(patternWrappers);
 		
-		return allPatterns;
-//		return patternWrappers;
+//		return allPatterns;
+		return patternWrappers;
 		
 	}
 	
@@ -30,7 +30,7 @@ public class PatternController {
 		
 		Pattern thisPattern = Pattern.retrievePattern(patternId);
 		
-		PatternWrapper patternLevel = new PatternWrapper("Select", thisPattern.getPatternSequence(), 1, 1, thisPattern.getElementCount());
+		PatternWrapper patternLevel = new PatternWrapper("tapElement", thisPattern.getPatternSequence(), 1, 1, thisPattern.getElementCount());
 
 		return patternLevel;
 		
