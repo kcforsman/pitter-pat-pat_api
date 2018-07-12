@@ -38,6 +38,10 @@ public class Pattern {
 		return generatePatterns().get(patternId-1);
 	}
 	
+	
+//	TEMPORARY method to generate a list of Patterns Hard-coded until finalize database decision
+//	will need to be replaced with a permutation method and attributes that are inputs for the method
+//	in the Pattern constructor
 	private static ArrayList<Pattern> generatePatterns() {
 //		Pattern Sequence 1 for Pattern 1
 		ArrayList<Integer> patternSequence1 = new ArrayList<Integer>();
@@ -189,6 +193,8 @@ public class Pattern {
 		
 		return patterns;
 	}
+//	TEMPORARY Method to return random patternSequences for multiple-choice game
+//	mode that copies or transfers a pattern
 	public static ArrayList<ArrayList<Integer>> generateRandomPatternSequences(int count) {
 //		Pattern Sequence 1 for PatternSequences
 		ArrayList<Integer> patternSequence1 = new ArrayList<Integer>();

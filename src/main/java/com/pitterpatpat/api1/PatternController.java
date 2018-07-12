@@ -15,7 +15,7 @@ public class PatternController {
 		ArrayList<Pattern> allPatterns = Pattern.getAllPatterns();
 		ArrayList<PatternWrapper> patternWrappers = new ArrayList<PatternWrapper>();
 		for (Pattern pattern: allPatterns) {
-			patternWrappers.add(new PatternWrapper("Select", pattern.getPatternSequence(), 1, 1, pattern.getElementCount()));
+			patternWrappers.add(new PatternWrapper("tapElement", pattern.getPatternSequence(), 1, 1, pattern.getElementCount()));
 		}
 		
 		System.out.println(patternWrappers);
