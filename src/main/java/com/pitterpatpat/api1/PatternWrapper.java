@@ -25,15 +25,17 @@ public class PatternWrapper {
 			int elementCount) {
 		super();
 		this.phase = PHASES.get(phaseId - 1);
-		pickGameType(elementCount, patternSequence.size());
-		this.questionTypes = pickTypes(typeCount);
 		this.questionSequences = new ArrayList<ArrayList<Integer>>();
-		this.answerSequences = new ArrayList<ArrayList<Integer>>();
-		generateSequences(patternSequence, answerCount);
 		this.choiceSequences = new ArrayList<ArrayList<Integer>>();
+		this.answerSequences = new ArrayList<ArrayList<Integer>>();
+		this.questionTypes = new ArrayList<String>();
+		this.questionElements = new ArrayList<HashMap<String,String>>();
+		this.answerTypes = new ArrayList<String>();
+		this.answerElements = new ArrayList<HashMap<String,String>>();
+		pickGameType(elementCount, patternSequence.size());
+		generateSequences(patternSequence, answerCount);
 		generateChoiceSequences(elementCount);
-		this.questionElements = new Element().generateUniqueElements(elementCount);
-		generateAnswerElementsAndTypes();
+		generateElementsAndTypes(elementCount, typeCount);
 	}
 	public String getPhase() {
 		return phase;
@@ -64,28 +66,56 @@ public class PatternWrapper {
 		return answerElements;
 	}
 	
-	private ArrayList<String> pickTypes(int count) {
-		ArrayList<Integer> indices = GetRandomIntegers.getArrayOfRandomInts(1, TYPES.size());
+	private static ArrayList<String> pickTypes(int count) {
+		ArrayList<Integer> indices = GetRandomIntegers.getArrayOfRandomInts(count, TYPES.size());
 		
 		ArrayList<String> types = new ArrayList<String>();
 		
-		types.add(TYPES.get(indices.get(0)));
+		for (int i : indices) { types.add(TYPES.get(i)); }
 		
 		return types;
 	}
 	
-	private void generateAnswerElementsAndTypes() {
+	private void generateElementsAndTypes(int elementCount, int typeCount) {
 //		will need logic for phases that generates different sets of objects
-		this.answerElements = this.questionElements;
-		this.answerTypes = this.questionTypes;
+		if (this.phase.equals("transfer")) {
+			ArrayList<String> types = pickTypes(typeCount * 2);
+			int index = 0;
+			for (int i = 0; i < typeCount; i++) {
+				this.questionTypes.add(types.get(index));
+				index++;
+			}
+			for (int j = 0; j < typeCount; j++) {
+				this.answerTypes.add(types.get(index));
+				index++;
+			}
+
+			ArrayList<HashMap<String, String>> elements = Element.generateUniqueElements((elementCount*2));
+			System.out.println(elements);
+			index = 0;
+			for (int i = 0; i < elementCount; i++) {
+				this.questionElements.add(elements.get(index));
+				index++;
+			}
+			for (int j = 0; j < elementCount; j++) {
+				this.answerElements.add(elements.get(index));
+				index++;
+			}
+		} else {
+			this.questionTypes = pickTypes(typeCount);
+			this.questionElements = Element.generateUniqueElements(elementCount);
+
+			this.answerElements = this.questionElements;
+			this.answerTypes = this.questionTypes;
+		}
 	}
 	
 	private void pickGameType(int elementCount, int unitLength) {
 //		will need logic for phases that generates different sets of objects
-		if (unitLength == 2) {
-			this.gameType = "tapElement";
-		} else if (this.phase.equals("transfer") || this.phase.equals("identify")){
+		if (this.phase.equals("transfer") || this.phase.equals("identify")) {
 			this.gameType = "tapPattern";
+		} else if (unitLength == 2){
+			this.gameType = "tapElement";
 		} else {
 			ArrayList<Integer> typeIndices = GetRandomIntegers.getArrayOfRandomInts(1, GAMETYPES.size());
 			this.gameType = GAMETYPES.get(typeIndices.get(0));

@@ -7,13 +7,13 @@ import java.util.HashMap;
 
 public class Element {
 	
-	public static final List<String> COLORS = (List<String>)asList("red", "blue", "green", "yellow", "purple", "orange", "pink");
-	public static final List<String> SHAPES = (List<String>)asList("circle", "square", "triangle", "rectangle");
-	public static final List<String> LETTERS = (List<String>)asList("A", "B", "C", "D", "E", "F", "G", "H");
+	public static final List<String> COLORS = (List<String>)asList("red", "blue", "green", "yellow", "purple", "orange", "pink", "turquoise", "brown", "grey");
+	public static final List<String> SHAPES = (List<String>)asList("circle", "square", "triangle", "rectangle", "heart", "diamond", "oval", "octogon", "pentagon", "hexagon");
+	public static final List<String> LETTERS = (List<String>)asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
 
 	
-	public ArrayList<HashMap<String,String>> generateUniqueElements(int count) {
-		ArrayList<HashMap<String,String>> elements = new ArrayList<HashMap<String,String>>();
+	public static ArrayList<HashMap<String,String>> generateUniqueElements(int count) {
+		ArrayList<HashMap<String,String>> elements = new ArrayList<HashMap<String,String>>(count);
 		ArrayList<Integer> colorIndices = GetRandomIntegers.getArrayOfRandomInts(count, COLORS.size());
 		ArrayList<Integer> shapeIndices = GetRandomIntegers.getArrayOfRandomInts(count, SHAPES.size());
 		ArrayList<Integer> letterIndices = GetRandomIntegers.getArrayOfRandomInts(count, LETTERS.size());
@@ -29,7 +29,7 @@ public class Element {
 		return elements;	
 	}
 	
-	private HashMap<String,String> generateElement(String color, String shape, String symbol) {
+	private static HashMap<String,String> generateElement(String color, String shape, String symbol) {
 		HashMap<String,String> newElement = new HashMap<String,String>();
 		newElement.put("color", color);
 		newElement.put("shape", shape);
