@@ -15,7 +15,7 @@ public class PatternController {
 		ArrayList<Pattern> allPatterns = Pattern.getAllPatterns();
 		ArrayList<PatternWrapper> patternWrappers = new ArrayList<PatternWrapper>();
 		for (Pattern pattern: allPatterns) {
-			patternWrappers.add(new PatternWrapper("tapElement", pattern.getPatternSequence(), 1, 1, pattern.getElementCount()));
+			patternWrappers.add(new PatternWrapper(pattern.getPatternSequence(), 1, 1, pattern.getElementCount()));
 		}
 		
 		System.out.println(patternWrappers);
@@ -30,19 +30,22 @@ public class PatternController {
 		
 		Pattern thisPattern = Pattern.retrievePattern(patternId);
 		
-		PatternWrapper patternLevel = new PatternWrapper("tapElement", thisPattern.getPatternSequence(), 1, 1, thisPattern.getElementCount());
+		PatternWrapper patternLevel = new PatternWrapper(thisPattern.getPatternSequence(), 1, 1, thisPattern.getElementCount());
 
 		return patternLevel;
 		
 	}
 	
+//	Route to test the PatternUnit Class Method generateRandomSequence
+	@GetMapping("/patternUnits")
+	public ArrayList<ArrayList<Integer>> getPatternSequences() {
+		return PatternUnit.generateCollectionOfPatternUnits(1, 4, 4);	
+	}
+	
 //	Route to test the Pattern Class Method generateRandomSequence
 //	@GetMapping("/patternSequences")
 //	public ArrayList<ArrayList<Integer>> getPatternSequences() {
-//		Pattern.generateRandomPatternSequences(4);
-//		
-//		return Pattern.generateRandomPatternSequences(4);
-//		
+//		return Pattern.generateRandomPatternSequences(4);	
 //	}
 
 }
