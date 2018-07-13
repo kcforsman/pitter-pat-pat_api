@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class PatternWrapper {
+	String phase;
 	String gameType;
 	ArrayList<ArrayList<Integer>> questionSequences;
 	ArrayList<ArrayList<Integer>> choiceSequences;
@@ -18,10 +19,12 @@ public class PatternWrapper {
 	
 	private static final List<String> TYPES = (List<String>) asList("Color", "Shape", "Letter");
 	private static final List<String> GAMETYPES = (List<String>) asList("tapElement", "tapPattern");
-	
-	public PatternWrapper(ArrayList<Integer> patternSequence, int typeCount, int answerCount,
+	private static final List<String> PHASES = (List<String>) asList("extend", "transfer", "identify");
+
+	public PatternWrapper(int phaseId, ArrayList<Integer> patternSequence, int typeCount, int answerCount,
 			int elementCount) {
 		super();
+		this.phase = PHASES.get(phaseId - 1);
 		pickGameType(elementCount, patternSequence.size());
 		this.questionTypes = pickTypes(typeCount);
 		this.questionSequences = new ArrayList<ArrayList<Integer>>();
@@ -31,6 +34,9 @@ public class PatternWrapper {
 		generateChoiceSequences(elementCount);
 		this.questionElements = new Element().generateUniqueElements(elementCount);
 		generateAnswerElementsAndTypes();
+	}
+	public String getPhase() {
+		return phase;
 	}
 	
 	public String getGameType() {
@@ -78,6 +84,8 @@ public class PatternWrapper {
 //		will need logic for phases that generates different sets of objects
 		if (unitLength == 2) {
 			this.gameType = "tapElement";
+		} else if (this.phase.equals("transfer") || this.phase.equals("identify")){
+			this.gameType = "tapPattern";
 		} else {
 			ArrayList<Integer> typeIndices = GetRandomIntegers.getArrayOfRandomInts(1, GAMETYPES.size());
 			this.gameType = GAMETYPES.get(typeIndices.get(0));
