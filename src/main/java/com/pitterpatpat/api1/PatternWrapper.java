@@ -34,7 +34,7 @@ public class PatternWrapper {
 		this.answerElements = new ArrayList<HashMap<String,String>>();
 		pickGameType(elementCount, patternSequence.size());
 		generateSequences(patternSequence, answerCount);
-		generateChoiceSequences(elementCount);
+		generateChoiceSequences(elementCount, patternSequence.size());
 		generateElementsAndTypes(elementCount, typeCount);
 	}
 	public String getPhase() {
@@ -125,8 +125,13 @@ public class PatternWrapper {
 
 	private void generateSequences(ArrayList<Integer> patternSequence, int answerCount) {
 		ArrayList<Integer> patternQuestion = generateSequence(patternSequence);
-
-		if (this.gameType.equals("tapPattern")) {
+		if (this.gameType.equals("tapPattern") && this.phase.equals("identify")) {
+			this.questionSequences.add(patternQuestion);
+			this.answerSequences.add(patternSequence);
+			ArrayList<Integer> patternQuestion2 = new ArrayList<Integer>(patternSequence.size());
+			for (int i = 0; i < patternSequence.size(); i++) { patternQuestion2.add(-1); }
+			this.questionSequences.add(patternQuestion2);
+		} else if (this.gameType.equals("tapPattern")) {
 			this.questionSequences.add(patternQuestion);
 			this.answerSequences.add(patternQuestion);
 			ArrayList<Integer> patternQuestion2 = new ArrayList<Integer>(patternQuestion.size());
@@ -158,12 +163,24 @@ public class PatternWrapper {
 	}
 
 	
-	private void generateChoiceSequences(int elementCount) {
-		if (this.gameType.equals("tapPattern")) {
+	private void generateChoiceSequences(int elementCount, int unitLength) {
+		if (this.gameType.equals("tapPattern") && this.phase.equals("identify")) {
+			for (ArrayList<Integer> patternUnit : this.answerSequences) {
+				this.choiceSequences.add(patternUnit);
+			}
+			ArrayList<ArrayList<Integer>> patternUnits= PatternUnit.generateCollectionOfPatternUnits(2 - this.answerSequences.size(), elementCount, unitLength);
+			for (ArrayList<Integer> patternUnit: patternUnits) {
+	            while ( this.choiceSequences.contains(patternUnit)) {
+	            	patternUnit = PatternUnit.generateCollectionOfPatternUnits(1, elementCount, unitLength) .get(0);
+	            }
+	            this.choiceSequences.add(patternUnit);
+			}
+			Collections.shuffle(this.choiceSequences);
+		} else if (this.gameType.equals("tapPattern")) {
 			for (ArrayList<Integer> sequence : this.answerSequences) {
 				this.choiceSequences.add(sequence);
 			}
-			ArrayList<ArrayList<Integer>> sequences= PatternUnit.generateCollectionOfPatternUnits(4 - this.answerSequences.size(), elementCount, 4);
+			ArrayList<ArrayList<Integer>> sequences= PatternUnit.generateCollectionOfPatternUnits(3 - this.answerSequences.size(), elementCount, 4);
 			for (ArrayList<Integer> sequence: sequences) {
 				sequence = generateSequence(sequence);
 	            while ( this.choiceSequences.contains(sequence)) {
