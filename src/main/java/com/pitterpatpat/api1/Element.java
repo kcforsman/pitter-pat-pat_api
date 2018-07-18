@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Element {
 	
-	public static final List<String> COLORS = (List<String>)asList("red", "blue", "green", "yellow", "purple", "orange", "pink", "turquoise", "brown", "grey");
+	public static final List<String> COLORS = (List<String>)asList("Red", "Blue", "LightBlue", "Green", "DarkGreen", "Yellow", "Purple", "Orange", "Pink", "Turquoise", "Brown", "Grey");
 	public static final List<String> SHAPES = (List<String>)asList("circle", "square", "triangle", "rectangle", "heart", "diamond", "oval", "octogon", "pentagon", "hexagon");
 	public static final List<String> LETTERS = (List<String>)asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
 
